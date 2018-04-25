@@ -8,6 +8,21 @@ namespace SalesSystem.Models
 {
     public class RetailerManage : SqlDb
     {
+
+        public void SelectCommodity(string retailerId)
+        {
+            string sql = "select * from Retailer where retailer_id = '" + retailerId + "'";     //有误
+            conn.Open();
+            SqlCommand comm = new SqlCommand(sql, conn);
+            SqlDataReader dr = comm.ExecuteReader();
+            dr.Read();
+            if (dr.HasRows)
+            {
+                //断点
+            }
+            conn.Close();
+        }
+
         public void InertCommodity(string commodityName, string commodityPic, float primeCost, float sellingPrice, string unit)
         {
             Random ran = new Random();

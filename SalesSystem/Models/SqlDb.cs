@@ -39,43 +39,55 @@ namespace SalesSystem.Models
             comm.ExecuteNonQuery();
         }
 
-        //查找管理员记录
-        public bool SelectAdmin(string adminName,string adminpass)
+        //查找管理员记录，返回主键
+        public string SelectAdmin(string adminName,string adminpass)
         {
-            string sql = "select * from Admin where admin_name = '"+adminName+"'and admin_password = '"+adminpass+"'";
+            string id = string.Empty;
+            string sql = "select admin_id from Admin where admin_name = '"+adminName+"'and admin_password = '"+adminpass+"'";
             conn.Open();
             SqlCommand comm = new SqlCommand(sql, conn);
             SqlDataReader dr = comm.ExecuteReader();
             dr.Read();
-            bool result = dr.HasRows;
+            if (dr.HasRows)
+            {
+                id = dr.GetString(0);
+            }
             conn.Close();
-            return result;
+            return id;
         }
 
-        //查找销售商记录
-        public bool SelectRetailer(string retailerTel, string retailerPass)
+        //查找销售商记录,返回主键
+        public string SelectRetailer(string retailerTel, string retailerPass)
         {
-            string sql = "select * from Retailer where phone_number = '" + retailerTel + "'and retailer_password = '" + retailerPass + "'";
+            string id = string.Empty;
+            string sql = "select retailer_id from Retailer where phone_number = '" + retailerTel + "'and retailer_password = '" + retailerPass + "'";
             conn.Open();
             SqlCommand comm = new SqlCommand(sql, conn);
             SqlDataReader dr = comm.ExecuteReader();
             dr.Read();
-            bool result = dr.HasRows;
+            if (dr.HasRows)
+            {
+                id = dr.GetString(0);
+            }
             conn.Close();
-            return result;
+            return id;
         }
 
-        //查找业主记录
-        public bool SelectPurchaser(string purchaserTel, string purchaserPass)
+        //查找业主记录,返回主键
+        public string SelectPurchaser(string purchaserTel, string purchaserPass)
         {
-            string sql = "select * from Purchaser where phone_number = '" + purchaserTel + "'and purchaser_password = '" + purchaserPass + "'";
+            string id = string.Empty;
+            string sql = "select purchaser_id from Purchaser where phone_number = '" + purchaserTel + "'and purchaser_password = '" + purchaserPass + "'";
             conn.Open();
             SqlCommand comm = new SqlCommand(sql, conn);
             SqlDataReader dr = comm.ExecuteReader();
             dr.Read();
-            bool result = dr.HasRows;
+            if (dr.HasRows)
+            {
+                id = dr.GetString(0);
+            }
             conn.Close();
-            return result;
+            return id;
         }
     }
 }

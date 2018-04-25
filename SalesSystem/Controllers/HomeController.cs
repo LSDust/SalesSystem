@@ -30,22 +30,22 @@ namespace SalesSystem.Controllers
         public String Signin(string tel, string pass)
         {
             SqlDb db = new SqlDb();
-            if (db.SelectAdmin(tel, pass))
+            if (db.SelectAdmin(tel, pass) != string.Empty)
             {
+                Session["id"] = db.SelectAdmin(tel, pass);
                 Session["tel"] = tel;
-                Session["pass"] = tel;
                 return "Admin";
             }
-            else if (db.SelectRetailer(tel, pass))
+            else if (db.SelectRetailer(tel, pass) != string.Empty)
             {
+                Session["id"] = db.SelectAdmin(tel, pass);
                 Session["tel"] = tel;
-                Session["pass"] = tel;
                 return "Retailer";
             }
-            else if (db.SelectPurchaser(tel, pass))
+            else if (db.SelectPurchaser(tel, pass) != string.Empty)
             {
+                Session["id"] = db.SelectAdmin(tel, pass);
                 Session["tel"] = tel;
-                Session["pass"] = tel;
                 return "Purchaser";
             }
             else
