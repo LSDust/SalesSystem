@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @*<form action="AddCommdity" method="POST">*@
+            <input type="text" name="cname" id="commdityName"/>
+            <input type="text" name="pic" id="commdityPic"/>
+            <input type="text" name="cost" id="primeCost" />
+            <input type="text" name="price" id="sellingPrice" />
+            <input type="text" name="unit" id="unit"/>
+            @*<input type="submit" id="submit"/>*@
+        @*</form>*@
+        <button id="save">保存</button>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#save").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "AddCommdity",
+                    data: {
+                        cname: $("#commdityName").val(),
+                        pic: $("#commdityPic").val(),
+                        cost: $("#primeCost").val(),
+                        price: $("#sellingPrice").val(),
+                        unit: $("#unit").val()
+                    },
+                    success: function (data) {
+                        alert("保存成功");
+                    },
+                    error: function (jqXHR) {
+                        alert("发生错误：" + jqXHR.status);
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+</html>

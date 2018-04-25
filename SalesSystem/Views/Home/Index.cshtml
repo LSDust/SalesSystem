@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/login.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="~/Scripts/Home/Index.js"></script>
+</head>
+<body>
+    <div class="form">
+        <input checked id="signin" name="action" type="radio" value="signin" />
+        <label for="signin">Sign in</label>
+        <input id="signup" name="action" type="radio" value="signup"/>
+        <label for="signup">Sign up</label>
+        <div id="wrapper">
+            <div id="arrow"></div>
+            <input id="tel" placeholder="电话号码" type="text" />
+            <input id="pass" placeholder="密码" type="password" />
+            <input id="repass" placeholder="确认密码" type="password" />
+        </div>
+        <button id="submit">
+            <span>
+                Reset password
+                <br />
+                登录
+                <br />
+                注册
+            </span>
+        </button>
+    </div>
+    <div id="hint">SalesSystem</div>
+</body>
+</html>
