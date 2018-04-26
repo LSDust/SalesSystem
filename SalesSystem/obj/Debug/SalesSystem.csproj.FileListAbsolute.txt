@@ -22,3 +22,5 @@ D:\procedure\GitHub\SalesSystem\SalesSystem\bin\zh-Hans\System.Web.Mvc.resources
 D:\procedure\GitHub\SalesSystem\SalesSystem\obj\Debug\SalesSystem.csprojResolveAssemblyReference.cache
 D:\procedure\GitHub\SalesSystem\SalesSystem\obj\Debug\SalesSystem.dll
 D:\procedure\GitHub\SalesSystem\SalesSystem\obj\Debug\SalesSystem.pdb
+D:\procedure\GitHub\SalesSystem\SalesSystem\bin\Newtonsoft.Json.dll
+D:\procedure\GitHub\SalesSystem\SalesSystem\bin\Newtonsoft.Json.xml

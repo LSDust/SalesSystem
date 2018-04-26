@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Css/Bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Css/Sell/retailerManage.css" />
     <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
-    <script src="~/Scripts/Sell/AddCommdity.js"></script>
+    <script src="~/Scripts/Sell/CommodityInfo.js"></script>
     <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 </head>
 <body>
@@ -39,7 +39,7 @@
                 <!-- 功能内容 -->
                 <div class="inbox-body">
                     <div class="mail-option">
-                        <button class="btn btn-default">+添加商品</button>
+                        <button class="btn btn-default" id="addcomdty">+添加商品</button>
                     </div>
 
 
@@ -56,16 +56,8 @@
                                 <th>删除</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>1</td>
-                                <td><input type="text" class="tb-input" placeholder="里脊肉"></td>
-                                <td><input name="imgfile" type="file" accept="image/jpg, image/jpeg" /></td>
-                                <td><input type="text" class="tb-input" placeholder="15">元</td>
-                                <td><input type="text" class="tb-input" placeholder="20">元</td>
-                                <td class="sd"><button class="bt-sm btn btn-default pull-right">保存</button></td>
-                                <td class="sd"><button class="bt-sm btn btn-default pull-right">删除</button></td>
-                            </tr>
+                        <tbody id="tbody">
+                            
                         </tbody>
                     </table>
                 </div>

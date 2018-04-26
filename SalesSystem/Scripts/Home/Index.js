@@ -32,7 +32,7 @@
                     if (data == "Admin") {
                         alert(data);
                     } else if (data == "Retailer") {
-                        location.href = "../Sell/AddCommdity";
+                        location.href = "../Sell/CommodityInfo";
                     } else if (data == "Purchaser") {
                         alert(data);
                     } else {

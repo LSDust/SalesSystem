@@ -38,13 +38,13 @@ namespace SalesSystem.Controllers
             }
             else if (db.SelectRetailer(tel, pass) != string.Empty)
             {
-                Session["id"] = db.SelectAdmin(tel, pass);
+                Session["id"] = db.SelectRetailer(tel, pass);
                 Session["tel"] = tel;
                 return "Retailer";
             }
             else if (db.SelectPurchaser(tel, pass) != string.Empty)
             {
-                Session["id"] = db.SelectAdmin(tel, pass);
+                Session["id"] = db.SelectPurchaser(tel, pass);
                 Session["tel"] = tel;
                 return "Purchaser";
             }

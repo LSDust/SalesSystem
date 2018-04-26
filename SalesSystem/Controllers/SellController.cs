@@ -1,5 +1,6 @@
 ﻿using SalesSystem.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,18 +16,19 @@ namespace SalesSystem.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult AddCommdity()
+        public ActionResult CommodityInfo()
         {
             return View();
         }
 
-        public void InitCommdity()
+        public String InitCommodity()
         {
             RetailerManage db = new RetailerManage();
-            db.SelectCommodity(Session["id"].ToString());
+            string a = db.SelectCommodity(Session["id"].ToString());
+            return a;
         }
         [HttpPost]
-        public ActionResult AddCommdity(string cname, float cost, float price, string unit)
+        public ActionResult AddCommodity(string cname, float cost, float price, string unit)
         {
             string pic = Request.Form["pic"];
             RetailerManage db = new RetailerManage();
