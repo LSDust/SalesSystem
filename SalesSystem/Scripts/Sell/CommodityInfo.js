@@ -5,36 +5,49 @@
         url: "InitCommodity",
         dataType: "json",
         success: function (data) {
-            data.forEach(AddComdty)
+            data.forEach(AddTr);
+            saveInit();
+            RemovalInit();
         },
         error: function (jqXHR) {
             alert("发生错误：" + jqXHR.status);
         },
     });
+
     //添加商品按钮
     $("#addcomdty").click(function () {
-        var tbody = "<tr class=''>" +
-            "<td></td>" +
-            "<td><input type='text' class='tb-input' placeholder=></td>" +
-            "<td><input name='imgfile' type='file' accept='image/jpg, image/jpeg' /></td>" +
-            "<td><input type='text' class='tb-input' placeholder=>元</td>" +
-            "<td><input type='text' class='tb-input' placeholder=>元</td>" +
-            "<td class='sd'><button class='bt-sm btn btn-default pull-right'>保存</button></td>" +
-            "<td class='sd'><button class='bt-sm btn btn-default pull-right'>删除</button></td>" +
-            "</tr>";
-        $("#tbody").append(tbody);
+        AddTr2();
+        InserInit();
     });
-    //保存按钮
-    $("#save").click(function () {
+});
+
+function AddTr(comdty) {
+    
+    var tbody = "<tr class="+comdty.commodityId+">"+
+    "<td><p>" + comdty.commodityId + "</p></td>" +
+    "<td><input type='text' class='tb-input name' value=" + comdty.commodityName + "></td>" +
+    "<td><a href='javascript:;' class='file'>选择图片<input type='file' name='' id=''></a></td>"+
+    "<td><input type='text' class='tb-input' value=" + comdty.primeCost + ">元</td>" +
+    "<td><input type='text' class='tb-input' value=" + comdty.sellingPrice + ">元</td>" +
+    "<td><input type='text' class='tb-input' value=" + comdty.unit + "></td>" +
+    "<td class='sd'><button class='bt-sm btn btn-default pull-right save' id="+ comdty.commodityId +">保存</button></td>" +
+    "<td class='sd'><button class='bt-sm btn btn-default pull-right delete'>删除</button></td>"+
+    "</tr>";
+    $("#tbody").append(tbody);
+}
+
+function saveInit() {
+    $(".save").click(function () {
+        var id = $(this).attr("id");
         $.ajax({
             type: "POST",
-            url: "AddCommodity",
+            url: "SaveCommodity",
             data: {
-                cname: $(".commdityName").val(),
-                pic: $(".commdityPic").val(),
-                cost: $(".primeCost").val(),
-                price: $(".sellingPrice").val(),
-                unit: $(".unit").val()
+                id:id,
+                cname: $("." + id).children().next().children().val(),
+                cost: $("." + id).children().next().next().next().children().val(),
+                price: $("." + id).children().next().next().next().next().children().val(),
+                unit: $("." + id).children().next().next().next().next().next().children().val()
             },
             success: function (data) {
                 alert("保存成功");
@@ -44,23 +57,67 @@
             },
         });
     });
-});
-
-function AddComdty(comdty) {
-    
-    var tbody = "<tr class=''>"+
-    "<td>"+comdty.commodityId+"</td>"+
-    "<td><input type='text' class='tb-input name' placeholder=" + comdty.commodityName + "></td>" +
-    "<td><input name='imgfile' type='file' accept='image/jpg, image/jpeg' /></td>"+
-    "<td><input type='text' class='tb-input' placeholder=" + comdty.primeCost + ">元</td>" +
-    "<td><input type='text' class='tb-input' placeholder=" + comdty.sellingPrice + ">元</td>" +
-    "<td class='sd'><button class='bt-sm btn btn-default pull-right' onclick='func1()'>保存</button></td>" +
-    "<td class='sd'><button class='bt-sm btn btn-default pull-right'>删除</button></td>"+
-    "</tr>";
-    $("#tbody").append(tbody);
 }
 
-function func1() {
-    var a = $("table").rows[0].innerHTML;   //断点
-    alert(a);
+function AddTr2(){
+    var tbody = "<tr class=''>" +
+        "<td><p class='p'>"+Math.floor((Math.random()*1000))+"</p></td>" +
+        "<td><input type='text' class='tb-input name' value=''></td>" +
+        "<td><a href='javascript:;' class='file'>选择图片<input type='file' name='' id=''></a></td>"+
+        "<td><input type='text' class='tb-input' value=''>元</td>" +
+        "<td><input type='text' class='tb-input' value=''>元</td>" +
+        "<td><input type='text' class='tb-input' value=''></td>" +
+        "<td class='sd'><button class='bt-sm btn btn-default pull-right save' id='inser'>保存</button></td>" +
+        "<td class='sd'><button class='bt-sm btn btn-default pull-right delete'>删除</button></td>"+
+        "</tr>";
+        $("#tbody").append(tbody);
+}
+
+function InserInit(){
+    //保存按钮
+    $("#inser").click(function () {
+        var id = $("#inser").parent().parent().children().children().html();
+        $.ajax({
+            type: "POST",
+            url: "AddCommodity",
+            data: {
+                id:id,
+                cname: $("#inser").parent().parent().children().next().children().val(),
+                pic: null,
+                cost: $("#inser").parent().parent().children().next().next().next().children().val(),
+                price: $("#inser").parent().parent().children().next().next().next().next().children().val(),
+                unit: $("#inser").parent().parent().children().next().next().next().next().next().children().val()
+            },
+            success: function (data) {
+                alert("保存成功");
+                $("#inser").attr("id",id);
+                RemovalInit();
+            },
+            error: function (jqXHR) {
+                alert("发生错误：" + jqXHR.status);
+            },
+        });
+    });
+}
+
+function RemovalInit(){
+    $(".delete").click(function(){
+        var id = $(this).parent().parent().children().children().html();
+        $.ajax({
+            type: "POST",
+            url: "RemovalCommodity",
+            data: {
+                id:id,
+            },
+            success: function (data) {
+                if(data){
+                    alert("删除成功");
+                }
+                location.reload(false);
+            },
+            error: function (jqXHR) {
+                alert("发生错误：" + jqXHR.status);
+            },
+        });
+    });
 }

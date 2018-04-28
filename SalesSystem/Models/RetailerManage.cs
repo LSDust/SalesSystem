@@ -45,15 +45,81 @@ namespace SalesSystem.Models
             return jsondata;
         }
 
-        public void InertCommodity(string commodityName, string commodityPic, float primeCost, float sellingPrice, string unit)
+        public bool InertCommodity(string id, string commodityName, string commodityPic, float primeCost, float sellingPrice, string unit)
         {
-            Random ran = new Random();
-            int key = ran.Next(0, 100);
+            //Random ran = new Random();
+            //int key = ran.Next(0, 100);
             //commodityPic String类型，img
-            String sql = "insert into Commodity values('" + key + "','" + commodityName + "','" + commodityPic + "','" + primeCost + "','" + sellingPrice + "','" + unit + "')";
+            bool result = true;
+            try
+            {
+                String sql = "insert into Commodity values('" + id + "','" + commodityName + "','" + commodityPic + "','" + primeCost + "','" + sellingPrice + "','" + unit + "')";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public void UpdateCommodity(string commodityId,string commodityName, decimal primeCost, decimal sellingPrice, string unit)
+        {
+            String sql = "update Commodity set commodity_name='" + commodityName + "',prime_cost='" + primeCost + "',selling_price='" + sellingPrice + "',unit='" + unit + "' where commodity_id = '" + commodityId + "'";
             SqlCommand comm = new SqlCommand(sql, conn);
             conn.Open();
             comm.ExecuteNonQuery();
+        }
+
+        public bool InserManage(string commodityId,string retailerId,float purchaseQuantity)
+        {
+            bool result = true;
+            try
+            {
+                String sql = "insert into Manage values('" + commodityId + "','" + retailerId + "','" + purchaseQuantity + "')";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool DeleteCommodity(string commodityId)
+        {
+            bool result = true;
+            try
+            {
+                String sql = "delete from Commodity where commodity_id = '" + commodityId + "'";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool DeleteManage(string commodityId)
+        {
+            bool result = true;
+            try
+            {
+                String sql = "delete from Manage where commodity_id = '"+commodityId+"'";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
