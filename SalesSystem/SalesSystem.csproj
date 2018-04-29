@@ -89,11 +89,13 @@
       <DependentUpon>SalesSystemDb.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Css\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Image\img_1.jpg" />
     <Content Include="Content\Css\Sell\retailerManage.css" />
     <Content Include="Content\Css\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Sell\CommodityInfo.js" />
+    <Content Include="Scripts\Sell\Warehousing.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +114,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Sell\CommodityInfo.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Sell\Warehousing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

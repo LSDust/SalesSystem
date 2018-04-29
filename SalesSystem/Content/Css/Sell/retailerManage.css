@@ -401,3 +401,6 @@ td.sd{
     color: #004974;
     text-decoration: none;
 }
+select{
+    height:25px;
+}

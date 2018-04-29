@@ -25,8 +25,8 @@ namespace SalesSystem.Controllers
         public String InitCommodity()
         {
             RetailerManage db = new RetailerManage();
-            string a = db.SelectCommodity(Session["id"].ToString());
-            return a;
+            string jsondata = db.SelectCommodity(Session["id"].ToString());
+            return jsondata;
         }
         [HttpPost]
         public void AddCommodity(string id, string cname, float cost, float price, string unit)
@@ -51,6 +51,11 @@ namespace SalesSystem.Controllers
             bool flag = db.DeleteCommodity(id);
             db.Closedb();
             return flag;
+        }
+
+        public ActionResult Warehousing()
+        {
+            return View();
         }
     }
 }
