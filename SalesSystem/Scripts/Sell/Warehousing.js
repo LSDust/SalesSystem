@@ -23,23 +23,22 @@ $(document).ready(function () {
         var i;
         for(i = 1;i<=rows&&i>0;i++){
             var quantity = $('tr:eq('+ i +')').children().next().next().children().val();
-            var name = $('tr:eq('+ i +')').children().next().children().val();
-            console.log(name);
-            // $.ajax({
-            //     type: "POST",
-            //     url: "SaveManage",
-            //     data: {
-            //         id:id,
-            //         cname: $("." + id).children().next().children().val(),
-            //         quantity: quantity
-            //     },
-            //     success: function (data) {
-            //         alert("保存成功");
-            //     },
-            //     error: function (jqXHR) {
-            //         alert("发生错误：" + jqXHR.status);
-            //     },
-            // });
+            var name = $('tr:eq('+ i +')').children().next().children().find("option:selected").text();
+            $.ajax({
+                type: "POST",
+                url: "SaveManage",
+                data: {
+                    //id:id,
+                    cname: name,
+                    quantity: quantity
+                },
+                success: function (data) {
+                    alert("保存成功");      //待改
+                },
+                error: function (jqXHR) {
+                    alert("发生错误：" + jqXHR.status);
+                },
+            });
         }
     });
 });
@@ -62,6 +61,7 @@ function InitCommodity(){
 
 function AddOption(comdty,index){
     // console.log(comdty.commodityId);
+    // console.log(comdty.sellingPrice);
     $("select:last").append("<option value="+comdty.sellingPrice+">"+comdty.commodityName+"</option>");
 }
 

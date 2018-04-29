@@ -57,5 +57,12 @@ namespace SalesSystem.Controllers
         {
             return View();
         }
+
+        public void SaveManage(string cname, float quantity)
+        {
+            RetailerManage db = new RetailerManage();
+            db.UpdateManage(Session["id"].ToString(), cname, quantity);
+            db.Closedb();
+        }
     }
 }

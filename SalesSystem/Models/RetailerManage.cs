@@ -121,5 +121,29 @@ namespace SalesSystem.Models
             }
             return result;
         }
+        public bool UpdateManage(string retailerId, string commodityName, float purchaseQuantity)
+        {
+            bool result = true;
+            try
+            {
+                string sql1 = "select Commodity.commodity_id from Commodity,Manage where commodity_name = '"+commodityName+"' and Commodity.commodity_id = Manage.commodity_id";
+                conn.Open();
+                SqlCommand comm1 = new SqlCommand(sql1, conn);
+                SqlDataReader dr = comm1.ExecuteReader();
+                dr.Read();
+                string commodityId = dr.GetString(0);
+                conn.Close();
+
+                String sql2 = "update Manage set purchase_quantity += "+purchaseQuantity+" where commodity_id = '"+commodityId+"' and retailer_id = '"+retailerId+"'";
+                SqlCommand comm2 = new SqlCommand(sql2, conn);
+                conn.Open();
+                comm2.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }
