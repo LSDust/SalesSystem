@@ -61,7 +61,6 @@ function InitCommodity(){
 
 function AddOption(comdty,index){
     // console.log(comdty.commodityId);
-    // console.log(comdty.sellingPrice);
     $("select:last").append("<option value="+comdty.sellingPrice+">"+comdty.commodityName+"</option>");
 }
 

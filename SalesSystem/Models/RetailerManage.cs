@@ -26,6 +26,21 @@ namespace SalesSystem.Models
         }
     }
 
+    public class Purchaser
+    {
+        public string purchaserId { get; set; }
+        public string purchaserName { get; set; }
+        public string purchaserPassword { get; set; }
+        public string phoneNumber { get; set; }
+        public string purchaserPic { get; set; }
+
+        public Purchaser(string id,string name)
+        {
+            this.purchaserId = id;
+            this.purchaserName = name;
+        }
+    }
+
     public class RetailerManage : SqlDb
     {
         public String SelectCommodity(string retailerId)
@@ -144,6 +159,31 @@ namespace SalesSystem.Models
                 result = false;
             }
             return result;
+        }
+
+        public String SelectPurchaser()
+        {
+            try
+            {
+                List<Purchaser> table = new List<Purchaser>();
+                string sql = "select purchaser_id,purchaser_name from Purchaser";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new Purchaser(dr.GetString(0), dr.GetString(1)));
+                }
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                conn.Close();
+                return jsondata;
+            }
+            catch(SqlException ex)
+            {
+                string result = string.Empty;
+                return result;
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SalesSystem.Controllers
         {
             return View();
         }
+
+        //商品管理
         [HttpGet]
         public ActionResult CommodityInfo()
         {
@@ -26,6 +28,7 @@ namespace SalesSystem.Controllers
         {
             RetailerManage db = new RetailerManage();
             string jsondata = db.SelectCommodity(Session["id"].ToString());
+            db.Closedb();
             return jsondata;
         }
         [HttpPost]
@@ -53,6 +56,7 @@ namespace SalesSystem.Controllers
             return flag;
         }
 
+        //入库管理
         public ActionResult Warehousing()
         {
             return View();
@@ -63,6 +67,19 @@ namespace SalesSystem.Controllers
             RetailerManage db = new RetailerManage();
             db.UpdateManage(Session["id"].ToString(), cname, quantity);
             db.Closedb();
+        }
+
+        //销售单
+        public ActionResult AddBill()
+        {
+            return View();
+        }
+        public string InitPurchaser()
+        {
+            RetailerManage db = new RetailerManage();
+            string jsondata = db.SelectPurchaser();
+            db.Closedb();
+            return jsondata;
         }
     }
 }
