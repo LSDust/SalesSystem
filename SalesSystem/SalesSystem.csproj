@@ -96,6 +96,7 @@
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Sell\AddBill.js" />
     <Content Include="Scripts\Sell\CommodityInfo.js" />
+    <Content Include="Scripts\Sell\Record.js" />
     <Content Include="Scripts\Sell\Warehousing.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -117,6 +118,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sell\Warehousing.cshtml" />
     <Content Include="Views\Sell\AddBill.cshtml" />
+    <Content Include="Views\Sell\Record.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

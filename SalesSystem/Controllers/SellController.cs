@@ -89,5 +89,18 @@ namespace SalesSystem.Controllers
             db.UpdateManage(Session["id"].ToString(), cname, 0 - quantity);
             db.Closedb();
         }
+
+        //查看账单模块
+        public ActionResult Record()
+        {
+            return View();
+        }
+        public String InitBill()
+        {
+            RetailerManage db = new RetailerManage();
+            string jsondata = db.SelectBill(Session["id"].ToString());
+            db.Closedb();
+            return jsondata;
+        }
     }
 }

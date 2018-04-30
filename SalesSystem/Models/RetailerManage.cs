@@ -42,6 +42,27 @@ namespace SalesSystem.Models
         }
     }
 
+    public class Bill
+    {
+        public string billId { get; set; }
+        public string retailerName { get; set; }
+        public string commodityName { get; set; }
+        public string purchaserName { get; set; }
+        public double billQuantity { get; set; }
+        public decimal price { get; set; }
+        public DateTime paymentDate { get; set; }
+
+        public Bill(string billId, string cname,string pname,double quantity,decimal price,DateTime date)
+        {
+            this.billId = billId;
+            this.commodityName = cname;
+            this.purchaserName = pname;
+            this.billQuantity = quantity;
+            this.price = price;
+            this.paymentDate = date;
+        }
+    }
+
     public class RetailerManage : SqlDb
     {
         private string GetRandomString(int length)
@@ -243,6 +264,32 @@ namespace SalesSystem.Models
                 result = false;
             }
             return result;
+        }
+
+        //查看账单模块
+        public String SelectBill(string retailerId)
+        {
+            try
+            {
+                List<Bill> table = new List<Bill>();
+                string sql = "select bill_id,commodity_name,purchaser_name,bill_quantity,selling_price,payment_date from Commodity,Purchaser,Bill where Bill.retailer_id='"+retailerId+"'and Commodity.commodity_id = Bill.commodity_id and Purchaser.purchaser_id = Bill.purchaser_id";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new Bill(dr.GetString(0),dr.GetString(1), dr.GetString(2), dr.GetDouble(3), dr.GetDecimal(4), dr.GetDateTime(5)));
+                }
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                conn.Close();
+                return jsondata;
+            }
+            catch (SqlException ex)
+            {
+                string result = string.Empty;
+                return result;
+            }
         }
     }
 }
