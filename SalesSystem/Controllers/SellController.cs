@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,7 +17,6 @@ namespace SalesSystem.Controllers
         {
             return View();
         }
-
         //商品管理
         [HttpGet]
         public ActionResult CommodityInfo()
@@ -80,6 +80,14 @@ namespace SalesSystem.Controllers
             string jsondata = db.SelectPurchaser();
             db.Closedb();
             return jsondata;
+        }
+        public void SaveBill(string purchaserId, string cname, float quantity)
+        {
+            RetailerManage db = new RetailerManage();
+            db.InsertBill(Session["id"].ToString(), cname, purchaserId, quantity);
+            db.Closedb();
+            db.UpdateManage(Session["id"].ToString(), cname, 0 - quantity);
+            db.Closedb();
         }
     }
 }
