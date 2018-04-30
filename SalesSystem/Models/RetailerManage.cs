@@ -63,6 +63,19 @@ namespace SalesSystem.Models
         }
     }
 
+    public class Manage
+    {
+        public string retailerId { get; set; }
+        public string commodityName { get; set; }
+        public double inventoryQuantity { get; set; }
+
+        public Manage(string cname,double quantity)
+        {
+            this.commodityName = cname;
+            this.inventoryQuantity = quantity;
+        }
+    }
+
     public class RetailerManage : SqlDb
     {
         private string GetRandomString(int length)
@@ -202,7 +215,7 @@ namespace SalesSystem.Models
                 string commodityId = dr.GetString(0);
                 conn.Close();
 
-                String sql2 = "update Manage set purchase_quantity += "+purchaseQuantity+" where commodity_id = '"+commodityId+"' and retailer_id = '"+retailerId+"'";
+                String sql2 = "update Manage set inventory_quantity += " + purchaseQuantity + " where commodity_id = '" + commodityId + "' and retailer_id = '" + retailerId + "'";
                 SqlCommand comm2 = new SqlCommand(sql2, conn);
                 conn.Open();
                 comm2.ExecuteNonQuery();
@@ -279,6 +292,32 @@ namespace SalesSystem.Models
                 while (dr.Read())
                 {
                     table.Add(new Bill(dr.GetString(0),dr.GetString(1), dr.GetString(2), dr.GetDouble(3), dr.GetDecimal(4), dr.GetDateTime(5)));
+                }
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                conn.Close();
+                return jsondata;
+            }
+            catch (SqlException ex)
+            {
+                string result = string.Empty;
+                return result;
+            }
+        }
+
+        //查看库存模块
+        public String SelectManage(string retailerId)
+        {
+            try
+            {
+                List<Manage> table = new List<Manage>();
+                string sql = "select commodity_name,inventory_quantity from Manage,Commodity,Retailer where Retailer.retailer_id = '"+retailerId+"' and Retailer.retailer_id = Manage.retailer_id and Manage.commodity_id = Commodity.commodity_id";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new Manage(dr.GetString(0), dr.GetDouble(1)));
                 }
                 dr.Close();
                 string jsondata = JsonConvert.SerializeObject(table); //序列化

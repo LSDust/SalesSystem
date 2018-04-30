@@ -102,5 +102,17 @@ namespace SalesSystem.Controllers
             db.Closedb();
             return jsondata;
         }
+        //查看库存
+        public ActionResult Inventory()
+        {
+            return View();
+        }
+        public String InitInventory()
+        {
+            RetailerManage db = new RetailerManage();
+            string jsondata = db.SelectManage(Session["id"].ToString());
+            db.Closedb();
+            return jsondata;
+        }
     }
 }

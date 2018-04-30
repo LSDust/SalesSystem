@@ -13,12 +13,6 @@
             alert("发生错误：" + jqXHR.status);
         },
     });
-
-    //添加商品按钮
-    // $("#addcomdty").click(function () {
-    //     AddTr2();
-    //     InserInit();
-    // });
 });
 
 function AddTr(bill){
