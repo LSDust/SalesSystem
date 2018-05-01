@@ -40,6 +40,12 @@ namespace SalesSystem.Models
             this.purchaserId = id;
             this.purchaserName = name;
         }
+        public Purchaser(string id, string name,string tel)
+        {
+            this.purchaserId = id;
+            this.purchaserName = name;
+            this.phoneNumber = tel;
+        }
     }
 
     public class Bill
@@ -55,6 +61,16 @@ namespace SalesSystem.Models
         public Bill(string billId, string cname,string pname,double quantity,decimal price,DateTime date)
         {
             this.billId = billId;
+            this.commodityName = cname;
+            this.purchaserName = pname;
+            this.billQuantity = quantity;
+            this.price = price;
+            this.paymentDate = date;
+        }
+        public Bill(string billId, string rname, string cname, string pname, double quantity, decimal price, DateTime date)
+        {
+            this.billId = billId;
+            this.retailerName = rname;
             this.commodityName = cname;
             this.purchaserName = pname;
             this.billQuantity = quantity;

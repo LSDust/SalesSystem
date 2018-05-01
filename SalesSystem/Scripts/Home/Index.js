@@ -11,7 +11,11 @@
                         pass: $("#pass").val()
                     },
                     success: function (data) {
-                        alert("注册成功");
+                        if (data) {
+                            alert("注册成功");
+                        } else {
+                            alert{"注册失败"};
+                        }
                     },
                     error: function (jqXHR) {
                         alert("发生错误：" + jqXHR.status);

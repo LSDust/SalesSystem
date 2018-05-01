@@ -29,14 +29,35 @@ namespace SalesSystem.Models
         }
 
         //注册
-        public void InertPurchaser(string tel,string pass)
+        public bool InertPurchaser(string tel,string pass)
         {
-            Random ran = new Random();
-            int key = ran.Next(0, 100);
-            String sql = "insert into Purchaser(purchaser_id,purchaser_password,phone_number) values('" + key + "','" + pass + "','" + tel + "')";
-            SqlCommand comm = new SqlCommand(sql, conn);
-            conn.Open();
-            comm.ExecuteNonQuery();
+            bool result = true;
+            try
+            {
+                Random ran = new Random();
+                int key = ran.Next(0, 100);
+                String sql = "insert into Purchaser(purchaser_id,purchaser_name,purchaser_password,phone_number) values('"+key+"','游客','"+pass+"','"+tel+"')";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                try
+                {
+                    Random ran = new Random();
+                    int key = ran.Next(0, 100);
+                    String sql = "insert into Purchaser(purchaser_id,purchaser_name,purchaser_password,phone_number) values('" + key + "','游客','" + pass + "','" + tel + "')";
+                    SqlCommand comm = new SqlCommand(sql, conn);
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+                catch (Exception ex2)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
         //查找管理员记录，返回主键

@@ -17,12 +17,12 @@ namespace SalesSystem.Controllers
 
         //注册
         [HttpPost]
-        public ActionResult Signup(string tel, string pass)
+        public bool Signup(string tel, string pass)
         {
             SqlDb db = new SqlDb();
-            db.InertPurchaser(tel, pass);
+            bool result = db.InertPurchaser(tel, pass);
             db.Closedb();
-            return View("index");
+            return result;
         }
 
         //登陆验证

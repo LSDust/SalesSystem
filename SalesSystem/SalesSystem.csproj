@@ -89,10 +89,43 @@
       <DependentUpon>SalesSystemDb.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Css\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Css\Client\common.css" />
+    <Content Include="Content\Css\Client\font.css" />
+    <Content Include="Content\Css\Client\footer.css" />
+    <Content Include="Content\Css\Client\header.css" />
+    <Content Include="Content\Css\Client\index.css" />
+    <Content Include="Content\Css\Client\ProductList.css" />
+    <Content Include="Content\Css\Client\responsive.css" />
     <Content Include="Content\Image\img_1.jpg" />
     <Content Include="Content\Css\Sell\retailerManage.css" />
     <Content Include="Content\Css\Site.css" />
+    <Content Include="Content\Image\logo.png" />
     <Content Include="Global.asax" />
+    <Content Include="Image\Retailer\Commodity\001.jpg" />
+    <Content Include="Image\Retailer\Commodity\002.jpg" />
+    <Content Include="Image\Retailer\Commodity\003.jpg" />
+    <Content Include="Image\Retailer\Commodity\004.jpg" />
+    <Content Include="Image\Retailer\Commodity\img05.jpg" />
+    <Content Include="Image\Retailer\Commodity\img06.jpg" />
+    <Content Include="Image\Retailer\Commodity\img07.jpg" />
+    <Content Include="Image\Retailer\Commodity\img08.jpg" />
+    <Content Include="Image\Retailer\Commodity\img09.jpg" />
+    <Content Include="Image\Retailer\Commodity\img10.jpg" />
+    <Content Include="Image\Retailer\Commodity\img12.jpg" />
+    <Content Include="Image\Retailer\Commodity\img16.jpg" />
+    <Content Include="Image\Retailer\Commodity\img25.jpg" />
+    <Content Include="Image\Retailer\Commodity\img27.jpg" />
+    <Content Include="Image\Retailer\Commodity\img28.jpg" />
+    <Content Include="Image\Retailer\Commodity\img29.jpg" />
+    <Content Include="Image\Retailer\Commodity\img30.jpg" />
+    <Content Include="Image\Retailer\Head\001.jpg" />
+    <Content Include="Scripts\Admin\AllBill.js" />
+    <Content Include="Scripts\Admin\Index.js" />
+    <Content Include="Scripts\Admin\RetailerInfo.js" />
+    <Content Include="Scripts\Client\common.js" />
+    <Content Include="Scripts\Client\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\Client\PorductList.js" />
+    <Content Include="Scripts\Client\swipe-min.js" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Sell\AddBill.js" />
     <Content Include="Scripts\Sell\CommodityInfo.js" />
@@ -103,11 +136,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SellController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\RetailerManage.cs" />
     <Compile Include="Models\SqlDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +158,12 @@
     <Content Include="Views\Sell\AddBill.cshtml" />
     <Content Include="Views\Sell\Record.cshtml" />
     <Content Include="Views\Sell\Inventory.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\RetailerInfo.cshtml" />
+    <Content Include="Views\Admin\AllBill.cshtml" />
+    <None Include="Views\Client\ProductList.cshtml" />
+    <Content Include="Content\font\fontello.woff" />
+    <Content Include="Content\font\waves.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,7 +171,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Image\Purchaser\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
