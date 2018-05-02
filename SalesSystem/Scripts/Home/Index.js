@@ -14,7 +14,7 @@
                         if (data) {
                             alert("注册成功");
                         } else {
-                            alert{"注册失败"};
+                            alert("注册失败");
                         }
                     },
                     error: function (jqXHR) {

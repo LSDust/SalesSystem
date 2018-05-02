@@ -123,14 +123,18 @@
     <Content Include="Scripts\Admin\Index.js" />
     <Content Include="Scripts\Admin\RetailerInfo.js" />
     <Content Include="Scripts\Client\common.js" />
+    <Content Include="Scripts\Client\Index.js" />
     <Content Include="Scripts\Client\jquery-1.7.1.min.js" />
     <Content Include="Scripts\Client\PorductList.js" />
     <Content Include="Scripts\Client\swipe-min.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\Sell\AddBill.js" />
     <Content Include="Scripts\Sell\CommodityInfo.js" />
     <Content Include="Scripts\Sell\Inventory.js" />
     <Content Include="Scripts\Sell\Record.js" />
+    <Content Include="Scripts\Sell\Record2.js" />
+    <Content Include="Scripts\Sell\RetailerInfo.js" />
     <Content Include="Scripts\Sell\Warehousing.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -161,9 +165,13 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\RetailerInfo.cshtml" />
     <Content Include="Views\Admin\AllBill.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Personal.cshtml" />
     <None Include="Views\Client\ProductList.cshtml" />
     <Content Include="Content\font\fontello.woff" />
     <Content Include="Content\font\waves.woff" />
+    <Content Include="Views\Sell\Record2.cshtml" />
+    <Content Include="Views\Sell\RetailerInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

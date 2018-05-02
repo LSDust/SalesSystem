@@ -25,5 +25,23 @@ namespace SalesSystem.Controllers
             db.Closedb();
             return jsondata;
         }
+        public String InitRetailer()
+        {
+            Client db = new Client();
+            string jsondata = db.SelectRetailerInfo();
+            db.Closedb();
+            return jsondata;
+        }
+        public ActionResult Personal()
+        {
+            return View();
+        }
+        public bool UpdatePurchaserInfo(string name,string tel)
+        {
+            Client db = new Client();
+            bool flag = db.UpdatePurchaser(Session["id"].ToString(), name, tel);
+            db.Closedb();
+            return flag;
+        }
     }
 }

@@ -67,6 +67,8 @@ namespace SalesSystem.Controllers
             RetailerManage db = new RetailerManage();
             db.UpdateManage(Session["id"].ToString(), cname, quantity);
             db.Closedb();
+            db.InsertManageBill(Session["id"].ToString(), cname, quantity);
+            db.Closedb();
         }
 
         //销售单
@@ -102,6 +104,18 @@ namespace SalesSystem.Controllers
             db.Closedb();
             return jsondata;
         }
+        public ActionResult Record2()
+        {
+            return View();
+        }
+        public String InitBill2()
+        {
+            RetailerManage db = new RetailerManage();
+            string jsondata = db.SelectBill2(Session["id"].ToString());
+            db.Closedb();
+            return jsondata;
+        }
+
         //查看库存
         public ActionResult Inventory()
         {
@@ -113,6 +127,16 @@ namespace SalesSystem.Controllers
             string jsondata = db.SelectManage(Session["id"].ToString());
             db.Closedb();
             return jsondata;
+        }
+        public ActionResult RetailerInfo()
+        {
+            return View();
+        }
+        public void UpdateRetailerInfo(string name,string tel,string add)
+        {
+            RetailerManage db = new RetailerManage();
+            db.UpdateRetailer(Session["id"].ToString(), name, tel, add);
+            db.Closedb();
         }
     }
 }

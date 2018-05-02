@@ -39,6 +39,21 @@ $(document).ready(function () {
                     alert("发生错误：" + jqXHR.status);
                 },
             });
+            //$.ajax({
+            //    type: "POST",
+            //    url: "SaveManageBill",
+            //    data: {
+            //        //id:id,
+            //        cname: name,
+            //        quantity: quantity
+            //    },
+            //    success: function (data) {
+            //        alert("保存成功");      //待改
+            //    },
+            //    error: function (jqXHR) {
+            //        alert("发生错误：" + jqXHR.status);
+            //    },
+            //});
         }
     });
 });

@@ -67,10 +67,18 @@ namespace SalesSystem.Models
             this.price = price;
             this.paymentDate = date;
         }
+        public Bill(string billId, string cname, double quantity, decimal price, DateTime date)
+        {
+            this.billId = billId;
+            this.commodityName = cname;
+            this.billQuantity = quantity;
+            this.price = price;
+            this.paymentDate = date;
+        }
         public Bill(string billId, string rname, string cname, string pname, double quantity, decimal price, DateTime date)
         {
             this.billId = billId;
-            this.retailerName = rname;
+            this.commodityName = cname;
             this.commodityName = cname;
             this.purchaserName = pname;
             this.billQuantity = quantity;
@@ -320,6 +328,30 @@ namespace SalesSystem.Models
                 return result;
             }
         }
+        public String SelectBill2(string id)
+        {
+            try
+            {
+                List<Bill> table = new List<Bill>();
+                string sql = "select bill_id,commodity_name,bill_quantity,selling_price,payment_date from Commodity,Purchaser,Bill where Purchaser.purchaser_id='" + id + "'and Commodity.commodity_id = Bill.commodity_id and Purchaser.purchaser_id = Bill.purchaser_id";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new Bill(dr.GetString(0), dr.GetString(1), dr.GetDouble(2), dr.GetDecimal(3), dr.GetDateTime(4)));
+                }
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                conn.Close();
+                return jsondata;
+            }
+            catch (SqlException ex)
+            {
+                string result = string.Empty;
+                return result;
+            }
+        }
 
         //查看库存模块
         public String SelectManage(string retailerId)
@@ -345,6 +377,50 @@ namespace SalesSystem.Models
                 string result = string.Empty;
                 return result;
             }
+        }
+        public bool InsertManageBill(string purchaserId, string commodityName, float billQuantity)
+        {
+            bool result = true;
+            try
+            {
+                string sql1 = "select Commodity.commodity_id from Commodity,Manage where commodity_name = '" + commodityName + "' and Commodity.commodity_id = Manage.commodity_id";
+                conn.Open();
+                SqlCommand comm1 = new SqlCommand(sql1, conn);
+                SqlDataReader dr = comm1.ExecuteReader();
+                dr.Read();
+                string commodityId = dr.GetString(0);
+                conn.Close();
+
+                string billId = GetRandomString(5);
+                DateTime date = DateTime.Now; ;
+                string sql = "insert into Bill(bill_id,retailer_id,commodity_id,purchaser_id,bill_quantity,payment_date) values ('" + billId + "','000','" + commodityId + "','" + purchaserId + "'," + billQuantity + ",GETDATE())";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        //销售商信息修改
+        public bool UpdateRetailer(string id,string name,string tel,string add)
+        {
+            bool result = true;
+            try
+            {
+                String sql = "update Retailer set retailer_name = '" + name + "',phone_number = '" + tel + "',store_location = '" + add + "'where retailer_id = '" + id + "'";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

@@ -64,6 +64,56 @@ namespace SalesSystem.Models
             }
         }
 
+        public string SelectRetailerInfo()
+        {
+            try
+            {
+                List<Retailer> table = new List<Retailer>();
+                string sql = "select retailer_name,retailer_pic,store_location from Retailer where retailer_id != '000'";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new Retailer(dr.GetString(0), dr.GetString(1), dr.GetString(2)));
+                }
+                dr.Close();
+                conn.Close();
+                for (int i = 0; i < table.Count(); i++)
+                {
+                    string sql2 = "select COUNT(*) from Bill,Retailer where Bill.retailer_id = Retailer.retailer_id and retailer_name = '"+table[i].retailerName+"'";
+                    conn.Open();
+                    SqlCommand comm2 = new SqlCommand(sql2, conn);
+                    int a = Convert.ToInt32(comm2.ExecuteScalar());
+                    table[i].sales = Convert.ToInt32(comm2.ExecuteScalar());
+                    conn.Close();
+                }
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                return jsondata;
+            }
+            catch (SqlException ex)
+            {
+                return string.Empty;
+            }
+        }
+
+        public bool UpdatePurchaser(string id, string name, string tel)
+        {
+            bool result = true;
+            try
+            {
+                String sql = "update Purchaser set purchaser_name = '"+name+"',phone_number = '"+tel+"' where purchaser_id = '"+id+"'";
+                SqlCommand comm = new SqlCommand(sql, conn);
+                conn.Open();
+                comm.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+
         //public string UploadImg(byte[] fileBytes, int id)
         //{
         //    try

@@ -14,6 +14,7 @@ namespace SalesSystem.Models
         public string retailerPic { get; set; }
         public string phoneNumber { get; set; }
         public string storeLocation { get; set; }
+        public int sales { get; set; }
 
         public Retailer(string id,string name,string tel,string location)
         {
@@ -21,6 +22,12 @@ namespace SalesSystem.Models
             this.retailerName = name;
             this.phoneNumber = tel;
             this.storeLocation = location;
+        }
+        public Retailer(string name, string img, string add)
+        {
+            this.retailerName = name;
+            this.retailerPic = img;
+            this.storeLocation = add;
         }
     }
 
