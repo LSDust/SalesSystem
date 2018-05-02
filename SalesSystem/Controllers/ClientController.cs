@@ -18,10 +18,10 @@ namespace SalesSystem.Controllers
         {
             return View();
         }
-        public String InitPorductList()
+        public String InitPorductList(string id = "001")
         {
             Client db = new Client();
-            string jsondata = db.SelectCommodityInfo(Session["id"].ToString());
+            string jsondata = db.SelectCommodityInfo(id);
             db.Closedb();
             return jsondata;
         }

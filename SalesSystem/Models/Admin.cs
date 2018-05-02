@@ -154,5 +154,33 @@ namespace SalesSystem.Models
                 return result;
             }
         }
+
+        public bool SelectAdmin2(string id)
+        {
+            bool result = true;
+            try
+            {
+                string sql = "select * from Admin where admin_id = '"+id+"'";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+                dr.Close();
+                conn.Close();
+                
+            }
+            catch (SqlException ex)
+            {
+                return false;
+            }
+            return result;
+        }
     }
 }

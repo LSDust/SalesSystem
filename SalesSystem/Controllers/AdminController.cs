@@ -12,7 +12,19 @@ namespace SalesSystem.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            string session = Session["id"].ToString(); 
+            Admin db = new Admin();
+            bool flag = db.SelectAdmin2(session);
+            db.Closedb();
+            if (flag)
+            {
+                return View();
+            }
+            else
+            {
+                return View("../Home/Index");
+            }
+            
         }
         public string InitPurchaser()
         {

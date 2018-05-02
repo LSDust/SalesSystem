@@ -14,10 +14,11 @@
     });
 });
 
-function AddLi(retailer) {
+function AddLi(retailer, index) {
+    var i = index + 1;
     var li = '<li class="line">' +
-        '<a href="#">' +
-            '<div class="pro-img"><img src=' + retailer.retailerPic + ' alt=""></div>' +
+        '<a href="ProductList">' +
+            '<div class="pro-img"><img src="../../Image/Retailer/Head/00'+i+'.jpg" alt=""></div>' +
             '<div class="pro-con">' +
                 '<h3>'+retailer.retailerName+'</h3>' +
                 '<p>月销' + retailer.sales + '笔</p>' +

@@ -96,6 +96,7 @@
     <Content Include="Content\Css\Client\index.css" />
     <Content Include="Content\Css\Client\ProductList.css" />
     <Content Include="Content\Css\Client\responsive.css" />
+    <Content Include="Content\Image\Admin.png" />
     <Content Include="Content\Image\img_1.jpg" />
     <Content Include="Content\Css\Sell\retailerManage.css" />
     <Content Include="Content\Css\Site.css" />
@@ -118,13 +119,16 @@
     <Content Include="Image\Retailer\Commodity\img28.jpg" />
     <Content Include="Image\Retailer\Commodity\img29.jpg" />
     <Content Include="Image\Retailer\Commodity\img30.jpg" />
+    <Content Include="Image\Retailer\Head\002.jpg" />
     <Content Include="Image\Retailer\Head\001.jpg" />
+    <Content Include="Image\Retailer\Head\003.jpg" />
     <Content Include="Scripts\Admin\AllBill.js" />
     <Content Include="Scripts\Admin\Index.js" />
     <Content Include="Scripts\Admin\RetailerInfo.js" />
     <Content Include="Scripts\Client\common.js" />
     <Content Include="Scripts\Client\Index.js" />
     <Content Include="Scripts\Client\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\Client\Personal.js" />
     <Content Include="Scripts\Client\PorductList.js" />
     <Content Include="Scripts\Client\swipe-min.js" />
     <Content Include="Scripts\Home\Index.js" />

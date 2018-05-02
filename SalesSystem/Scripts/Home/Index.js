@@ -34,11 +34,11 @@
                 },
                 success: function (data) {
                     if (data == "Admin") {
-                        alert(data);
+                        location.href = "../Admin/Index";
                     } else if (data == "Retailer") {
                         location.href = "../Sell/CommodityInfo";
                     } else if (data == "Purchaser") {
-                        alert(data);
+                        location.href = "../Client/Index";
                     } else {
                         alert(data);
                     }

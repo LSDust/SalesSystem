@@ -251,12 +251,12 @@ namespace SalesSystem.Models
             return result;
         }
 
-        public String SelectPurchaser()
+        public String SelectPurchaser(string retailerId)
         {
             try
             {
                 List<Purchaser> table = new List<Purchaser>();
-                string sql = "select purchaser_id,purchaser_name from Purchaser";
+                string sql = "select purchaser_id,purchaser_name from Purchaser where purchaser_id != '" + retailerId + "'";
                 conn.Open();
                 SqlCommand comm = new SqlCommand(sql, conn);
                 SqlDataReader dr = comm.ExecuteReader();

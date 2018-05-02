@@ -14,7 +14,7 @@
     });
 });
 
-function AddLi(porduct){
+function AddLi(porduct) {
     porduct.commodityName;
     porduct.commodityPic;
     porduct.commodityPrice;

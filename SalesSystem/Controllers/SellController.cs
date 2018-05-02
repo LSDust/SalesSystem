@@ -79,7 +79,8 @@ namespace SalesSystem.Controllers
         public string InitPurchaser()
         {
             RetailerManage db = new RetailerManage();
-            string jsondata = db.SelectPurchaser();
+            string session = Session["id"].ToString();
+            string jsondata = db.SelectPurchaser(session); ;
             db.Closedb();
             return jsondata;
         }
