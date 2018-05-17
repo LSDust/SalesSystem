@@ -18,7 +18,7 @@ namespace SalesSystem.Controllers
         {
             return View();
         }
-        public String InitPorductList(string id = "001")
+        public String InitPorductList(string id)
         {
             Client db = new Client();
             string jsondata = db.SelectCommodityInfo(id);
@@ -42,6 +42,32 @@ namespace SalesSystem.Controllers
             bool flag = db.UpdatePurchaser(Session["id"].ToString(), name, tel);
             db.Closedb();
             return flag;
+        }
+        public void AddBill2(string id, string cname, float quantity)
+        {
+            RetailerManage db = new RetailerManage();
+            db.InsertManageBill2(id, cname, Session["id"].ToString(), quantity);
+            db.Closedb();
+            db.UpdateManage2(id, cname, quantity);
+            db.Closedb();
+        }
+        public String ThisRetailer(string id)
+        {
+            Client db = new Client();
+            string jsondata = db.SelectThisRetailer(id);
+            db.Closedb();
+            return jsondata;
+        }
+        public ActionResult Bill()
+        {
+            return View();
+        }
+        public String InitBill2()
+        {
+            Client db = new Client();
+            string jsondata = db.SelectBill(Session["id"].ToString());
+            db.Closedb();
+            return jsondata;
         }
     }
 }

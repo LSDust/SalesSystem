@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace SalesSystem.Models
@@ -17,13 +18,40 @@ namespace SalesSystem.Models
             public decimal commodityPrice { get; set; }
             public string commodityUnit { get; set; }
             public int frequency { get; set; }
+            public double quantity { get; set; }
 
-            public CommodityInfo(string cname,string cpic,decimal price,string unit)
+            public CommodityInfo(string cname,string cpic,decimal price,string unit,double quantity)
             {
                 this.commodityName = cname;
                 this.commodityPic = cpic;
                 this.commodityPrice = price;
                 this.commodityUnit = unit;
+                this.quantity = quantity;
+            }
+        }
+
+        public class BillTwo
+        {
+            public string billId { get; set; }
+            public string retailerName { get; set; }
+            public string commodityName { get; set; }
+            public string pic { get; set; }
+            public double billQuantity { get; set; }
+            public decimal price { get; set; }
+            public string unit { get; set; }
+            public string paymentDate { get; set; }
+            public bool flag { get; set; }
+
+            public BillTwo(string id,string rname,string cname,string pic,double quantity,decimal price,string unit,string date,bool flag){
+                this.billId = id;
+                this.retailerName = rname;
+                this.commodityName = cname;
+                this.pic = pic;
+                this.billQuantity = quantity;
+                this.price = price;
+                this.unit = unit;
+                this.paymentDate = date;
+                this.flag = flag;
             }
         }
 
@@ -32,7 +60,7 @@ namespace SalesSystem.Models
             try
             {
                 List<CommodityInfo> table = new List<CommodityInfo>();
-                string sql = "select commodity_name,commodity_pic,selling_price,unit from Commodity,Manage where Manage.retailer_id = '"+retailerId+"' and Commodity.commodity_id = Manage.commodity_id";
+                string sql = "select commodity_name,commodity_pic,selling_price,unit,inventory_quantity from Commodity,Manage where Manage.retailer_id = '" + retailerId + "' and Commodity.commodity_id = Manage.commodity_id";
                 conn.Open();
                 SqlCommand comm = new SqlCommand(sql, conn);
                 SqlDataReader dr = comm.ExecuteReader();
@@ -42,7 +70,7 @@ namespace SalesSystem.Models
                     string b = dr.GetString(1);
                     decimal c = dr.GetDecimal(2);
                     string d = dr.GetString(3);
-                    table.Add(new CommodityInfo(dr.GetString(0), dr.GetString(1),dr.GetDecimal(2),dr.GetString(3)));
+                    table.Add(new CommodityInfo(dr.GetString(0), dr.GetString(1),dr.GetDecimal(2),dr.GetString(3),dr.GetDouble(4)));
                 }
                 dr.Close();
                 conn.Close();
@@ -69,13 +97,13 @@ namespace SalesSystem.Models
             try
             {
                 List<Retailer> table = new List<Retailer>();
-                string sql = "select retailer_name,retailer_pic,store_location from Retailer where retailer_id != '000'";
+                string sql = "select retailer_id,retailer_name,retailer_pic,phone_number, store_location from Retailer where retailer_id != '000'";
                 conn.Open();
                 SqlCommand comm = new SqlCommand(sql, conn);
                 SqlDataReader dr = comm.ExecuteReader();
                 while (dr.Read())
                 {
-                    table.Add(new Retailer(dr.GetString(0), dr.GetString(1), dr.GetString(2)));
+                    table.Add(new Retailer(dr.GetString(0), dr.GetString(1), dr.GetString(2),dr.GetString(3),dr.GetString(4)));
                 }
                 dr.Close();
                 conn.Close();
@@ -113,27 +141,49 @@ namespace SalesSystem.Models
             }
             return result;
         }
+        public string SelectThisRetailer(string id)
+        {
+            try
+            {
+                string sql = "select retailer_id,retailer_name,retailer_pic,phone_number,store_location from Retailer where retailer_id = '"+id+"'";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                dr.Read();                
+                Retailer retailer = new Retailer(dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4));
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(retailer); //序列化
+                conn.Close();
+                return jsondata;                
+            }
+            catch(SqlException ex)
+            {
+                return string.Empty;
+            }
+        }
 
-        //public string UploadImg(byte[] fileBytes, int id)
-        //{
-        //    try
-        //    {
-        //        string filePath = Server.MapPath(".") + "\\EmpImage\\" + id + ".jpg"; //图片要保存的路径及文件名
-        //        using (MemoryStream memoryStream = new MemoryStream(fileBytes))//1.定义并实例化一个内存流，以存放提交上来的字节数组。
-        //        {
-        //            using (FileStream fileUpload = new FileStream(filePath, FileMode.Create))//2.定义实际文件对象，保存上载的文件。
-        //            {
-        //                memoryStream.WriteTo(fileUpload); ///3.把内存流里的数据写入物理文件  
-        //            }
-        //        }
-        //        //GetSqlExcuteNonQuery是我写好的一个执行command的ExcuteNonQuery()方法
-        //        GetSqlExcuteNonQuery(string.Format("insert into EmpImg values('{0}','{1}')", id, filePath)); //将该图片保存的文件路径写入数据库
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ex.Message;
-        //    }
-        //}
-
+        public String SelectBill(string id)
+        {
+            try
+            {
+                List<BillTwo> table = new List<BillTwo>();
+                string sql = "select bill_id,retailer_name,commodity_name,commodity_pic,bill_quantity,selling_price,unit,payment_date,flag from Bill,Commodity,Retailer where purchaser_id = '" + id + "' and Bill.commodity_id = Commodity.commodity_id and Retailer.retailer_id = Bill.retailer_id order by payment_date DESC";
+                conn.Open();
+                SqlCommand comm = new SqlCommand(sql, conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    table.Add(new BillTwo(dr.GetString(0), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetDouble(4), dr.GetDecimal(5), dr.GetString(6), dr.GetDateTime(7).GetDateTimeFormats('f')[0].ToString(), dr.GetBoolean(8)));
+                }
+                dr.Close();
+                string jsondata = JsonConvert.SerializeObject(table); //序列化
+                conn.Close();
+                return jsondata;
+            }
+            catch (SqlException ex)
+            {
+                return string.Empty;
+            }
+        }
     }
 }

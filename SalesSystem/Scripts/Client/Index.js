@@ -15,10 +15,9 @@
 });
 
 function AddLi(retailer, index) {
-    var i = index + 1;
-    var li = '<li class="line">' +
-        '<a href="ProductList">' +
-            '<div class="pro-img"><img src="../../Image/Retailer/Head/00'+i+'.jpg" alt=""></div>' +
+    var li = '<li class="line" >' +
+        '<a href="" class="get" id='+retailer.retailerId+'>' +
+            '<div class="pro-img"><img src=' + retailer.retailerPic + ' alt=""></div>' +
             '<div class="pro-con">' +
                 '<h3>'+retailer.retailerName+'</h3>' +
                 '<p>月销' + retailer.sales + '笔</p>' +
@@ -27,4 +26,11 @@ function AddLi(retailer, index) {
         '</a>' +
     '</li>';
     $("ol:last").append(li);
+}
+
+function Inita() {
+    $(".get").click(function () {
+        var a = $(this).attr("id");
+        $(this).attr("href", "ProductList?id="+a);
+    });
 }

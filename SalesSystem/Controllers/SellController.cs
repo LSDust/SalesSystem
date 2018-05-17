@@ -139,5 +139,29 @@ namespace SalesSystem.Controllers
             db.UpdateRetailer(Session["id"].ToString(), name, tel, add);
             db.Closedb();
         }
+        public ActionResult GetForm()
+        {
+            HttpRequest request = System.Web.HttpContext.Current.Request;
+            string id = Request.Form["id"];
+            HttpFileCollection FileCollect = request.Files;
+            if (FileCollect.Count > 0)          //如果集合的数量大于0
+            {
+                HttpPostedFile FileSave = FileCollect[0];  //用key获取单个文件对象HttpPostedFile                
+                string imgPath = "/Image/Retailer/Commodity/" + id + ".jpg";     //通过此对象获取文件名
+                string AbsolutePath = Server.MapPath(imgPath);
+                FileSave.SaveAs(AbsolutePath);              //将上传的东西保存
+                RetailerManage db = new RetailerManage();
+                db.UpdateCommodityImg(id, imgPath);
+                db.Closedb();
+            }
+            return View("CommodityInfo");
+        }
+
+        public void UpdateBill(string bid)
+        {
+            RetailerManage db = new RetailerManage();
+            db.UpdateBillFlag(bid);
+            db.Closedb();
+        }
     }
 }

@@ -23,10 +23,12 @@ namespace SalesSystem.Models
             this.phoneNumber = tel;
             this.storeLocation = location;
         }
-        public Retailer(string name, string img, string add)
+        public Retailer(string id, string name, string img, string tel, string add)
         {
+            this.retailerId = id;
             this.retailerName = name;
             this.retailerPic = img;
+            this.phoneNumber = tel;
             this.storeLocation = add;
         }
     }

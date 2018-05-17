@@ -76,7 +76,7 @@ function InitCommodity(){
 
 function AddOption(comdty,index){
     // console.log(comdty.commodityId);
-    $("select:last").append("<option value="+comdty.sellingPrice+">"+comdty.commodityName+"</option>");
+    $("select:last").append("<option value="+comdty.primeCost+">"+comdty.commodityName+"</option>");
 }
 
 function InitSelect(){      //删除

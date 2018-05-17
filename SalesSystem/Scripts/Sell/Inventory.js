@@ -13,13 +13,24 @@
     });
 });
 
-function AddTr(initInventory){
+function AddTr(initInventory,index){
     initInventory.commodityName;
     initInventory.inventoryQuantity;
-    var tbody = '<tr class="">'+
-        '<td>'+1+'</td>'+
-        '<td><p>'+initInventory.commodityName+'</p></td>'+
-        '<td>'+initInventory.inventoryQuantity+'</td>'+
-    '</tr>';
-    $("tbody").append(tbody);
+    i = index + 1;
+    if (initInventory.inventoryQuantity > 5) {
+        var tbody = '<tr class="">' +
+            '<td>' + i + '</td>' +
+            '<td><p>' + initInventory.commodityName + '</p></td>' +
+            '<td>' + initInventory.inventoryQuantity + '</td>' +
+        '</tr>';
+        $("tbody").append(tbody);
+    } else {
+        var tbody = '<tr style="font-weight:bold;color:red;">' +
+            '<td>' + i + '</td>' +
+            '<td><p>' + initInventory.commodityName + '</p></td>' +
+            '<td>' + initInventory.inventoryQuantity + '</td>' +
+        '</tr>';
+        $("tbody").append(tbody);
+    }
+
 }

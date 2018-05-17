@@ -23,15 +23,15 @@
 
 function AddTr(comdty) {
     
-    var tbody = "<tr class="+comdty.commodityId+">"+
+    var tbody = "<tr class=" + comdty.commodityId + ">" +
     "<td><p>" + comdty.commodityId + "</p></td>" +
     "<td><input type='text' class='tb-input name' value=" + comdty.commodityName + "></td>" +
-    "<td><a href='javascript:;' class='file'>选择图片<input type='file' name='' id=''></a></td>"+
+    "<td><form action='GetForm' method='post' enctype='multipart/form-data'><div class='file'><input type='file' name='file1'/>图片</div><div class='file' ><input type='submit' name='id' value=" + comdty.commodityId + " />提交</div></form></td>" +
     "<td><input type='text' class='tb-input' value=" + comdty.primeCost + ">元</td>" +
     "<td><input type='text' class='tb-input' value=" + comdty.sellingPrice + ">元</td>" +
     "<td><input type='text' class='tb-input' value=" + comdty.unit + "></td>" +
-    "<td class='sd'><button class='bt-sm btn btn-default pull-right save' id="+ comdty.commodityId +">保存</button></td>" +
-    "<td class='sd'><button class='bt-sm btn btn-default pull-right delete'>删除</button></td>"+
+    "<td class='sd'><button class='bt-sm btn btn-default pull-right save' id=" + comdty.commodityId + ">保存</button></td>" +
+    "<td class='sd'><button class='bt-sm btn btn-default pull-right delete'>删除</button></td>" +
     "</tr>";
     $("#tbody").append(tbody);
 }
@@ -59,11 +59,12 @@ function saveInit() {
     });
 }
 
-function AddTr2(){
+function AddTr2() {
+    var id = Math.floor((Math.random() * 1000));
     var tbody = "<tr class=''>" +
-        "<td><p class='p'>"+Math.floor((Math.random()*1000))+"</p></td>" +
+        "<td><p class='p'>"+id+"</p></td>" +
         "<td><input type='text' class='tb-input name' value=''></td>" +
-        "<td><a href='javascript:;' class='file'>选择图片<input type='file' name='' id=''></a></td>"+
+        "<td><form action='GetForm' method='post' enctype='multipart/form-data'><div class='file'><input type='file' name='file1'/>图片</div><div class='file' ><input type='submit' value='"+id+"' name='id'/>提交</div></form></td>" +
         "<td><input type='text' class='tb-input' value=''>元</td>" +
         "<td><input type='text' class='tb-input' value=''>元</td>" +
         "<td><input type='text' class='tb-input' value=''></td>" +
