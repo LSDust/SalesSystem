@@ -48,7 +48,7 @@
                         alert("保存成功");
                     },
                     error: function (jqXHR) {
-                        alert("发生错误：" + jqXHR.status);
+                        alert("保存成功：" + jqXHR.status);
                     },
                 });
             }
